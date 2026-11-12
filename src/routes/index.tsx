@@ -1,7 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { pageNamesQueryOptions } from '../api/mockApiCall';
 
 export const Route = createFileRoute('/')({
-  loader: async () => {
+  loader: async ({ context }) => {
+    await context.queryClient.query(pageNamesQueryOptions);
     return {
       header: {
         title: 'Citizen Portal',
@@ -13,10 +16,12 @@ export const Route = createFileRoute('/')({
 });
 
 function HomePage() {
+  const { data: pageNames } = useSuspenseQuery(pageNamesQueryOptions);
+
   return (
     <div>
       <h1>Home</h1>
-      <p>Welcome to the home page!</p>
+      <p>You are on the {pageNames.home} page</p>
     </div>
   );
 }
