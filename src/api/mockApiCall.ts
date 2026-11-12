@@ -1,13 +1,17 @@
 import { queryOptions } from '@tanstack/react-query';
 import { z } from 'zod';
 
+// Create a Zod schema object to validate the structure of the mock data
 const pageNamesSchema = z.object({
   home: z.string(),
   about: z.string(),
 });
 
+// Create a TypeScript type based on the Zod schema
 type PageNames = z.infer<typeof pageNamesSchema>;
 
+
+// Fetch the mock data from the JSON file and validate it against the Zod schema
 async function fetchPageNames(): Promise<PageNames> {
   const response = await fetch(
     `${import.meta.env.BASE_URL}mock-api/mock-data.json`,
@@ -18,6 +22,8 @@ async function fetchPageNames(): Promise<PageNames> {
   }
 
   const data: unknown = await response.json();
+
+  // Check that the data matches the expected structure using the Zod schema, and only return the data if it is valid.
   return pageNamesSchema.parse(data);
 }
 
