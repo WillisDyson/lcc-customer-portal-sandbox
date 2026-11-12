@@ -2,8 +2,8 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { pageNamesQueryOptions } from '../api/mockApiCall';
 
-// Define the route for the About page
-export const Route = createFileRoute('/about')({
+// Define the route for the Apply page
+export const Route = createFileRoute('/apply/part1 copy')({
 
   // Fetch the data before rendering the component
   loader: async ({ context }) => {
@@ -19,18 +19,29 @@ export const Route = createFileRoute('/about')({
   },
 
   // Tells the router which component to render for this route
-  component: AboutPage,
+  component: ApplyPage,
 });
 
-function AboutPage() {
+function ApplyPage() {
 
   // Use the useSuspenseQuery hook to fetch the page names from the query client
   const { data: pageNames } = useSuspenseQuery(pageNamesQueryOptions);
 
   return (
     <div>
-      <h1>About</h1>
-      <p>You are on the {pageNames.about} page</p>
+      <h1>Apply</h1>
+      <p>You are on the {pageNames.apply2} page</p>
+      <form>
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input type="text" id="name" name="name" />
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input type="email" id="email" name="email" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 }

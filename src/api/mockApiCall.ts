@@ -4,7 +4,7 @@ import { z } from 'zod';
 // Create a Zod schema object to validate the structure of the mock data
 const pageNamesSchema = z.object({
   home: z.string(),
-  about: z.string(),
+  apply: z.string(),
 });
 
 // Create a TypeScript type based on the Zod schema

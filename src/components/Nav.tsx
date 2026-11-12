@@ -6,7 +6,7 @@ export function Nav () {
       <nav>
         <ul>
             <Link to="/"><a href="/">Home</a></Link>
-            <Link to="/about"><a href="/about">About</a></Link>
+            <Link to="/apply"><a href="/apply">Apply</a></Link>
         </ul>
       </nav>
   );
