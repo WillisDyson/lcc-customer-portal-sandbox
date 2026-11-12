@@ -10,7 +10,6 @@ const pageNamesSchema = z.object({
 // Create a TypeScript type based on the Zod schema
 type PageNames = z.infer<typeof pageNamesSchema>;
 
-
 // Fetch the mock data from the JSON file and validate it against the Zod schema
 async function fetchPageNames(): Promise<PageNames> {
   const response = await fetch(
@@ -27,8 +26,15 @@ async function fetchPageNames(): Promise<PageNames> {
   return pageNamesSchema.parse(data);
 }
 
+// Define the options required for TanStack to fetch and cache the page names, and expose them for use in the route loaders and components.
 export const pageNamesQueryOptions = queryOptions({
+
+  // Define a unique key for the query to identify it in the cache
   queryKey: ['page-names'],
+
+  // Define the function that will be used to fetch the data
   queryFn: fetchPageNames,
+
+  // Define how long the data should be considered fresh before it is refetched (static = never refetch)
   staleTime: 'static',
 });

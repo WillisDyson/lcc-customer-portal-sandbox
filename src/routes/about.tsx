@@ -8,7 +8,7 @@ export const Route = createFileRoute('/about')({
   // Fetch the data before rendering the component
   loader: async ({ context }) => {
 
-    // Fetch the page names from the mock API and store them in the query client
+    // Fetch the page names from the mock API and store them in the query client. Use the pre-defined query options from mockApiCall.ts to ensure that the data is validated and cached correctly. If the data is already in the cache, it will be returned from there instead of making a new network request, due to the unique query key defined in the query options (in mockApiCall.ts).
     await context.queryClient.query(pageNamesQueryOptions);
     return {
       header: {
