@@ -1,9 +1,12 @@
 import { queryOptions } from '@tanstack/react-query';
+import { z } from 'zod';
 
-type PageNames = {
-  home: string;
-  about: string;
-};
+const pageNamesSchema = z.object({
+  home: z.string(),
+  about: z.string(),
+});
+
+type PageNames = z.infer<typeof pageNamesSchema>;
 
 async function fetchPageNames(): Promise<PageNames> {
   const response = await fetch(
@@ -14,7 +17,8 @@ async function fetchPageNames(): Promise<PageNames> {
     throw new Error('Unable to load page names');
   }
 
-  return response.json() as Promise<PageNames>;
+  const data: unknown = await response.json();
+  return pageNamesSchema.parse(data);
 }
 
 export const pageNamesQueryOptions = queryOptions({
